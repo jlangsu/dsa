@@ -38,9 +38,9 @@ class Queue<T> {
     this.length--;
 
     const head = this.head;
-    if (this.tail === this.head) this.tail = undefined;
     this.head = this.head.next;
 
+    if (!this.head) this.tail = this.head;
     head.next = undefined;
 
     return head.value;
@@ -54,3 +54,4 @@ class Queue<T> {
     }
   }
 }
+
