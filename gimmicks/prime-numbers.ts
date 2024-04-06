@@ -1,6 +1,6 @@
 
-// naive; inefficient algorithm
-function prime(limit: number): number[] {
+function simple(limit: number): number[] {
+  console.log(performance.now());
   const primes: number[] = [];
   let n = 2;
   do {
@@ -14,7 +14,25 @@ function prime(limit: number): number[] {
     if (isPrime) primes.push(n);
     n++;
   } while (n < limit);
+  console.log(performance.now());
   return primes;
 }
 
-console.log(prime(100));
+function sieve(limit: number): number[] {
+  console.log(performance.now());
+  const isPrime: boolean[] = new Array(limit);
+  isPrime.fill(true);
+  const primes: number[] = [];
+  for (let i = 2; i < limit; ++i) {
+    if (!isPrime[i]) continue;
+    for (let j = i; j < limit; j += i) {
+      isPrime[j] = false;
+    }
+    primes.push(i);
+  }
+  console.log(performance.now());
+  return primes;
+}
+
+console.log('simple', simple(1e5));
+console.log('sieve', sieve(1e5));
